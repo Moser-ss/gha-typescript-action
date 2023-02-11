@@ -1,0 +1,6 @@
+name: GitHub Action Name <Change ME>
+description: GitHub Action Description <Change Me>
+
+runs:
+  using: "node16"
+  main: "dist/index.js"
