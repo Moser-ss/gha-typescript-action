@@ -6,7 +6,7 @@ jest.mock('@actions/core');
 
 describe('run', () => {
 	it('should log Hello mesage', async () => {
-		const dummyName = "Jae";
+		const dummyName = 'Jae';
 		when(core.getInput).calledWith('name').mockReturnValue(dummyName);
 		process.env.GITHUB_REPOSITORY = 'foo/bar';
 
