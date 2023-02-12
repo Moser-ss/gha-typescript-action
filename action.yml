@@ -2,5 +2,14 @@ name: GitHub Action Name <Change ME>
 description: GitHub Action Description <Change Me>
 
 runs:
-  using: "node16"
-  main: "dist/index.js"
+  using: 'node16'
+  main: 'dist/index.js'
+
+inputs:
+  name:
+    default: ${{ github.actor }}
+    description: Name to use in the greeting message
+
+outputs:
+  greetings_msg:
+    description: Greetings message

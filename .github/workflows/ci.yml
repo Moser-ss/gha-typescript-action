@@ -1,13 +1,47 @@
 name: 'CI'
 on: # rebuild any PRs and main branch changes
   pull_request:
+    branches:
+      - master
+    paths:
+      - src/**
+      - tests/**
+      - '*.json'
+      - action.yaml
+      - .github/workflows/ts.yaml
+
   push:
     branches:
       - master
-      - 'releases/*'
+    paths:
+      - src/**
+      - tests/**
+      - '*.json'
+      - action.yaml
+      - .github/workflows/ts.yaml
 
 jobs:
   build: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          node-version-file: .nvmrc
+      - run: npm ci
+      - run: npm run all
+      - name: Upload Generated files
+        uses: int128/update-generated-files-action@v2
+      - name: Run SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,4 +51,6 @@ jobs:
           cache: 'npm'
           node-version-file: .nvmrc
       - run: npm ci
-      - run: npm run all
+      - run: npm run format
+      - name: Upload Generated files
+        uses: int128/update-generated-files-action@v2

@@ -1,0 +1,27 @@
+name: Release
+on:
+  pull_request:
+    paths:
+      - .github/workflows/release.yaml
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          node-version-file: .nvmrc
+      - run: npm ci
+      - run: npm run package
+      - uses: int128/release-typescript-action@v1
+        with:
+          # TODO: change this on the stable release
+          major-version: 0

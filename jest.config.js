@@ -10,14 +10,14 @@ const config = {
 	setupFilesAfterEnv: ['./test/jest.setup.ts'],
 	collectCoverage: true,
 	collectCoverageFrom: ['src/**/*.{js,ts}'],
-	transform:{
+	transform: {
 		'^.+\\.tsx?$': [
-      'ts-jest',
-      {
-        tsconfig: 'test/tsconfig.json',
-      },
-    ],
-	}
+			'ts-jest',
+			{
+				tsconfig: 'test/tsconfig.json',
+			},
+		],
+	},
 };
 
 module.exports = config;

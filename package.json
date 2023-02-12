@@ -1,6 +1,6 @@
 {
   "name": "GitHub Action Name <Change Me>",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "GitHub Action description <Change Me>",
   "author": "Pipedrive",
   "license": "SEE LICENSE IN LICENSE.md",
@@ -13,7 +13,8 @@
     "node": ">=16"
   },
   "scripts": {
-    "build": "ncc build src/index.ts",
+    "package": "ncc build src/index.ts  --license licenses.txt",
+    "build": "tsc",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest",
@@ -43,6 +44,7 @@
   },
 
   "pre-commit": [
-    "all"
+    "format",
+    "test"
   ]
 }
